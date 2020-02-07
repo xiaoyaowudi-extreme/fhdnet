@@ -1,0 +1,33 @@
+#capable:
+#   Kepler
+#   Maxwell
+#   Pascal
+#   Volta
+ARCH   := Pascal
+
+Pascal  = Pascal
+Maxwell = Maxwell
+Kepler  = Kepler
+Volta   = Volta
+SM     :=30
+
+ifeq ($(ARCH), $(Kepler))
+	SM :=30
+endif
+
+ifeq ($(ARCH), $(Maxwell))
+	SM :=50
+endif
+
+ifeq ($(ARCH), $(Pascal))
+	SM :=60
+endif
+
+ifeq ($(ARCH), $(Volta))
+	SM :=70
+endif
+
+NVCC_FLAGS   := --gpu-architecture=compute_$(SM) --gpu-code=sm_$(SM) --device-c
+COMPILER     := nvcc
+CPP_COMPILER := g++
+CPP_FLAGS    := -m64 -O2 -Wall
