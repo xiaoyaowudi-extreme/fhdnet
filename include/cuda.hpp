@@ -17,4 +17,13 @@
     } \
 }
 
+namespace fhdnet
+{
+	extern cudaDeviceProp cuda_device_property;
+
+	extern bool is_cuda_initted;
+
+	void cuda_init();
+}
+
 #endif

@@ -38,7 +38,7 @@ namespace fhdnet
 
     cuda_mt19937::cuda_mt19937(uint32_t __seed)
     {
-        CHECK( cudaSetDevice(0) );
+        if(!is_cuda_initted) cuda_init();
         CHECK( cudaMalloc((void**)&mt, N * sizeof(uint32_t)) );
         CHECK( cudaMalloc((void**)&index, sizeof(uint32_t)) );
         uint32_t *__device_seed;
