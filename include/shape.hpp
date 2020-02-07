@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <math.h>
 #include <vector>
+#include <assert.h>
 
 #ifndef _SHAPE_HPP_
 #define _SHAPE_HPP_
@@ -19,7 +20,7 @@ namespace fhdnet
     class shape
     {
     private:
-        std::vector<unsigned long long> __shape;
+        std::vector<long long> __shape;
     public:
         shape();
 
@@ -31,32 +32,32 @@ namespace fhdnet
 
         template<typename T, typename IT> void assign(T __in[], IT __length);
 
-        unsigned long long& operator[](const long long &a);
+        long long& operator[](const long long &a);
 
         ~shape();
 
         struct iterator
         {
-            std::vector<unsigned long long>::iterator __it;
+            std::vector<long long>::iterator __it;
 
             void operator++();
 
             void operator--();
 
-            unsigned long long& operator*();
+            long long& operator*();
 
             bool operator!=(const iterator &it);
         };
 
         struct reverse_iterator
         {
-            std::vector<unsigned long long>::reverse_iterator __it;
+            std::vector<long long>::reverse_iterator __it;
 
             void operator++();
 
             void operator--();
 
-            unsigned long long& operator*();
+            long long& operator*();
 
             bool operator!=(const reverse_iterator &it);
         };
@@ -69,7 +70,7 @@ namespace fhdnet
 
         reverse_iterator rend();
 
-        unsigned long long size();
+        long long size();
     };
 }
 
@@ -106,7 +107,7 @@ namespace fhdnet
             __shape.push_back(__in[i]);
         }
     }
-    unsigned long long& shape::operator[](const long long &a)
+    long long& shape::operator[](const long long &a)
     {
         if(a < 0)
         {
@@ -134,7 +135,7 @@ namespace fhdnet
     {
         __it--;
     }
-    unsigned long long& shape::iterator::operator*()
+    long long& shape::iterator::operator*()
     {
         return *__it;
     }
@@ -150,7 +151,7 @@ namespace fhdnet
     {
         __it--;
     }
-    unsigned long long& shape::reverse_iterator::operator*()
+    long long& shape::reverse_iterator::operator*()
     {
         return *__it;
     }
@@ -174,12 +175,13 @@ namespace fhdnet
     {
         return (shape::reverse_iterator){__shape.rend()};
     }
-    unsigned long long shape::size()
+    long long shape::size()
     {
-        unsigned long long __total = 1;
+        long long __total = 1;
         for(shape::iterator it = this->begin(); it != this->end(); ++it)
         {
             __total *= *it;
+            assert((*it) >= 0);
         }
         return __total;
     }
